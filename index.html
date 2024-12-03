@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Data Display with Add Feature</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Interactive Data Display</h1>
+
+    <input type="text" id="search" placeholder="Search by name..." oninput="filterData()">
+    
+    <div id="data-container"></div>
+
+    <!-- Form to add new data -->
+    <form id="add-form" onsubmit="addData(event)">
+        <input type="text" id="new-id" placeholder="ID" required>
+        <input type="text" id="new-name" placeholder="Name" required>
+        <button type="submit">Add Data</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
