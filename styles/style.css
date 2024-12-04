@@ -1,70 +1,215 @@
+/* Root Variables for Colors */
+:root {
+    --primary-dark: #244734; /* Dark green */
+    --primary-light: #67b784; /* Light green */
+    --accent: #4caf71; /* Accent green */
+    --background-light: #f4f4f9; /* Light background */
+    --text-light: #ffffff; /* White text */
+    --text-dark: #16211b; /* Dark text */
+    --hover-effect: #8ecf9c; /* Hover color */
+}
+
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-dark);
+    background-color: var(--background-light);
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--primary-dark);
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--primary-light);
+    text-decoration: none;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 15px;
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--hover-effect);
+    text-shadow: 0 0 5px var(--hover-effect);
+}
+
+/* Hero Section */
+.hero {
+    background: url('https://via.placeholder.com/1200x400?text=Nature+Background') no-repeat center center/cover;
+    height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
-}
-
-h1 {
-    font-size: 24px;
-}
-
-#search {
-    margin: 20px;
-    padding: 8px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#data-container {
-    border: 1px solid #ccc;
+    justify-content: center;
+    color: var(--text-light);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     padding: 20px;
-    width: 300px;
-    background-color: #f9f9f9;
-    max-height: 300px;
-    overflow-y: auto;
 }
 
-.data-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
 }
 
-.data-item.show {
-    opacity: 1;
-    transform: translateY(0);
+.hero p {
+    font-size: 1.2rem;
+    color: #e0ffe6;
 }
 
-.data-item:last-child {
-    border-bottom: none;
-}
-
-form {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-}
-
-input[type="text"] {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    padding: 8px 16px;
+.hero .btn {
+    background-color: var(--accent);
     border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 4px;
+    color: var(--text-light);
+    font-weight: bold;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero .btn:hover {
+    background-color: var(--primary-light);
+    transform: scale(1.05);
+}
+
+/* Form Section */
+.card {
+    background-color: var(--primary-dark);
+    border-radius: 8px;
+    color: var(--text-light);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.card h2 {
+    color: var(--primary-light);
+    text-align: center;
+}
+
+.card .form-label {
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.card .form-control,
+.card .form-select {
+    background-color: #1a2e24;
+    color: var(--text-light);
+    border: 1px solid var(--primary-light);
+    border-radius: 5px;
+}
+
+.card .form-control::placeholder {
+    color: #8caf8e;
+}
+
+.card .form-control:focus,
+.card .form-select:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 5px var(--primary-light);
+}
+
+.card .btn-primary {
+    background-color: var(--accent);
+    border: none;
+    font-weight: bold;
+    color: var(--text-light);
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card .btn-primary:hover {
+    background-color: var(--primary-light);
+}
+
+.card .btn-secondary {
+    background-color: #3b5544;
+    border: none;
+    font-weight: bold;
+    color: var(--text-light);
+    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #45a049;
+.card .btn-secondary:hover {
+    background-color: #5a8064;
+}
+
+/* Plans Section */
+#plans-section {
+    padding: 60px 20px;
+    background-color: var(--primary-dark);
+    text-align: center;
+    color: var(--text-light);
+}
+
+#plans-section h2 {
+    margin-bottom: 30px;
+    color: var(--hover-effect);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+#plans-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+#plans-container .card {
+    background-color: var(--primary-light);
+    color: var(--text-dark);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#plans-container .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--primary-dark);
+    padding: 20px 0;
+    text-align: center;
+    color: #8caf8e;
+    font-size: 0.9rem;
+    border-top: 2px solid var(--primary-light);
+}
+
+.footer span {
+    color: #ff5733;
 }
