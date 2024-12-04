@@ -1,74 +1,82 @@
-let dataItems = []; // Store fetched data
+// Save Plan Functionality
+document.getElementById('grocery-form').addEventListener('submit', function (event) {
+    event.preventDefault();
 
-// Fetch data from the text file
-fetch('data.txt')
-    .then(response => response.text())
-    .then(data => {
-        // Split the data into lines
-        const lines = data.split('\n');
-        const container = document.getElementById('data-container');
+    // Get input values
+    const itemName = document.getElementById('item-name').value.trim();
+    const quantity = document.getElementById('quantity').value.trim();
+    const category = document.getElementById('category').value;
+    const store = document.getElementById('store').value;
+    const pickupDate = document.getElementById('pickup-date').value;
+    const pickupTime = document.getElementById('pickup-time').value;
+    const highPriority = document.getElementById('high-priority').checked;
 
-        // Loop through each line and create an object for each item
-        lines.forEach(line => {
-            const [id, name] = line.trim().split(' ');
-            if (id && name) {
-                // Store each item in an array
-                dataItems.push({ id, name });
-            }
-        });
-        
-        // Display all data initially
-        displayData(dataItems);
-    })
-    .catch(error => {
-        console.error('Error loading data:', error);
-    });
-
-// Display data in the container
-function displayData(data) {
-    const container = document.getElementById('data-container');
-    container.innerHTML = ''; // Clear previous content
-
-    data.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'data-item';
-        itemDiv.textContent = `ID: ${item.id}, Name: ${item.name}`;
-        
-        // Add the 'show' class to trigger animation
-        setTimeout(() => {
-            itemDiv.classList.add('show');
-        }, 10);
-
-        container.appendChild(itemDiv);
-    });
-}
-
-// Filter data based on search input
-function filterData() {
-    const searchValue = document.getElementById('search').value.toLowerCase();
-    const filteredData = dataItems.filter(item => item.name.toLowerCase().includes(searchValue));
-    displayData(filteredData);
-}
-
-// Add new data from the form
-function addData(event) {
-    event.preventDefault(); // Prevent form from refreshing the page
-
-    // Get values from the input fields
-    const id = document.getElementById('new-id').value.trim();
-    const name = document.getElementById('new-name').value.trim();
-
-    // Check if both ID and Name are provided
-    if (id && name) {
-        // Add the new data to the dataItems array
-        const newItem = { id, name };
-        dataItems.push(newItem);
-
-        // Clear the input fields
-        document.getElementById('new-id').value = '';
-        document.getElementById('new-name').value = '';
-
-        // Display updated data
-        displayData(dataItems);
+    // Validate inputs
+    if (!itemName || !quantity || !category || !store || !pickupDate || !pickupTime) {
+        alert('Please fill out all fields!');
+        return;
     }
+
+    // Create plan object
+    const plan = { itemName, quantity, category, store, pickupDate, pickupTime, highPriority };
+
+    // Retrieve existing plans or initialize an empty array
+    let plans = JSON.parse(localStorage.getItem('plans')) || [];
+    plans.push(plan);
+    localStorage.setItem('plans', JSON.stringify(plans));
+
+    // Success message and reset form
+    alert('Plan saved successfully!');
+    document.getElementById('grocery-form').reset();
+    displayPlans();
+});
+
+// Display Plans
+function displayPlans() {
+    const plansContainer = document.getElementById('plans-container');
+    const plans = JSON.parse(localStorage.getItem('plans')) || [];
+
+    // Clear the container
+    plansContainer.innerHTML = '';
+
+    // Check if there are no plans
+    if (plans.length === 0) {
+        plansContainer.innerHTML = `<p class="text-center">No plans available. Create a new plan above!</p>`;
+        return;
+    }
+
+    // Generate HTML for each plan
+    plans.forEach((plan, index) => {
+        const planCard = document.createElement('div');
+        planCard.classList.add('col-md-6', 'mb-4');
+        planCard.innerHTML = `
+            <div class="card p-3 shadow-lg">
+                <h5>${plan.itemName} (${plan.category})</h5>
+                <p><strong>Quantity:</strong> ${plan.quantity}</p>
+                <p><strong>Store:</strong> ${plan.store}</p>
+                <p><strong>Pickup Date:</strong> ${plan.pickupDate}</p>
+                <p><strong>Pickup Time:</strong> ${plan.pickupTime}</p>
+                <p><strong>Priority:</strong> ${plan.highPriority ? 'High' : 'Normal'}</p>
+                <button class="btn btn-danger" onclick="deletePlan(${index})">Delete</button>
+            </div>
+        `;
+        plansContainer.appendChild(planCard);
+    });
 }
+
+// Delete Plan
+function deletePlan(index) {
+    // Retrieve existing plans
+    const plans = JSON.parse(localStorage.getItem('plans')) || [];
+    
+    // Remove the selected plan
+    plans.splice(index, 1);
+    localStorage.setItem('plans', JSON.stringify(plans));
+
+    // Refresh the plans display
+    alert('Plan deleted successfully!');
+    displayPlans();
+}
+
+// Load plans on page load
+document.addEventListener('DOMContentLoaded', displayPlans);
