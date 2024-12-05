@@ -60,7 +60,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: url('https://via.placeholder.com/1200x400?text=Nature+Background') no-repeat center center/cover;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-light)); /* Gradient background */
     height: 400px;
     display: flex;
     flex-direction: column;
