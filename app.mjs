@@ -1,28 +1,37 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import authRoutes from "./routes/auth.mjs";
+import itemsRoutes from "./routes/Items.mjs";
 
+dotenv.config();
 const app = express();
 
-// ESM-safe __dirname
+// ESM-safe dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve everything in the repo root (index.html, styles/, script/, images, etc.)
-app.use(express.static(__dirname));
+// Middleware
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
-// Fallback to index.html for the root (optional; helps if you later add routes)
+// MongoDB Connection
+mongoose
+  .connect(process.env.MONGO_URI, { dbName: "grocery_planner" })
+  .then(() => console.log("✅ MongoDB connected successfully"))
+  .catch((err) => console.error("❌ MongoDB connection failed:", err.message));
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/items", itemsRoutes);
+
+// Fallback to frontend
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// IMPORTANT on Render: use process.env.PORT
+// Start server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`✅ Listening on ${PORT}`);
-});
-
-
-//Use render to upload your website from git
-//run it and also commit changes live on your website from your git clone in vscode
-//what is app.mjs?
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
