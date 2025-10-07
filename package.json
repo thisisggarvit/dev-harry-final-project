@@ -1,14 +1,46 @@
 {
-  "name": "dev-harry-final-project",
+  "name": "gg-grocery-planner",
   "version": "1.0.0",
+  "description": "A full-stack grocery planning app demonstrating complete CRUD operations, JWT authentication, and MongoDB persistence — built for capstone demonstration.",
+  "main": "app.mjs",
   "type": "module",
   "scripts": {
-    "start": "node app.mjs"
+    "start": "node app.mjs",
+    "dev": "nodemon app.mjs",
+    "seed": "node seed.mjs",
+    "cleanup": "node cleanup.mjs"
   },
+  "author": "Garvit Garvit",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.19.2"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   },
   "engines": {
-    "node": ">=18"
-  }
+    "node": ">=18.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thisisggarvit/dev-harry-final-project.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "restful-api",
+    "jwt",
+    "capstone",
+    "fullstack",
+    "mvc",
+    "crud"
+  ]
 }

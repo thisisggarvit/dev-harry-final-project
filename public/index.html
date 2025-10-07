@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GG’s Grocery Planner</title>
+  <link rel="stylesheet" href="styles/style.css"/>
+</head>
+<body id="index">
+  <!-- Topbar -->
+  <nav class="topbar glass">
+    <div class="brand">🛒 GG’s Grocery Planner</div>
+    <div class="spacer"></div>
+    <div class="user">
+      <span id="helloUser">Hi!</span>
+      <button id="logoutBtn" class="btn-ghost">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <h1>Your Grocery Dashboard</h1>
+    <p>Plan ahead, shop smarter, stay organized.</p>
+  </header>
+
+  <!-- Controls -->
+  <section class="controls card glass">
+    <input id="searchInput" class="input" placeholder="Search by name, category or store…"/>
+    <div class="row2">
+      <select id="categoryFilter" class="input">
+        <option value="">All Categories</option>
+        <option>Vegetables</option>
+        <option>Fruits</option>
+        <option>Dairy</option>
+        <option>Beverages</option>
+      </select>
+      <select id="storeFilter" class="input">
+        <option value="">All Stores</option>
+        <option>Walmart</option>
+        <option>Target</option>
+        <option>Whole Foods</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Add Item -->
+  <section class="card glass">
+    <h2>Add Grocery Item</h2>
+    <form id="addForm" class="grid2">
+      <input name="itemName" placeholder="Item Name" required/>
+      <input name="quantity" type="number" min="1" placeholder="Quantity" required/>
+      <select name="category" required>
+        <option value="" disabled selected>Category</option>
+        <option>Vegetables</option>
+        <option>Fruits</option>
+        <option>Dairy</option>
+        <option>Beverages</option>
+      </select>
+      <select name="store" required>
+        <option value="" disabled selected>Store</option>
+        <option>Walmart</option>
+        <option>Target</option>
+        <option>Whole Foods</option>
+      </select>
+      <input name="pickupDate" type="date" required/>
+      <input name="pickupTime" type="time" required/>
+      <label class="chk"><input type="checkbox" name="highPriority"/> High Priority</label>
+      <button type="submit" class="btn-main">Add Item</button>
+    </form>
+  </section>
+
+  <!-- Items List -->
+  <section class="card glass">
+    <h2>Your Items</h2>
+    <div id="itemsList" class="items-grid"></div>
+  </section>
+
+  <!-- Edit Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card glass">
+      <div class="modal-head">
+        <h3>Edit Item</h3>
+        <button id="modalClose" class="btn-ghost">✖</button>
+      </div>
+      <form id="editForm" class="grid2">
+        <input name="itemName" placeholder="Item Name" required/>
+        <input name="quantity" type="number" min="1" placeholder="Quantity" required/>
+        <select name="category" required>
+          <option>Vegetables</option>
+          <option>Fruits</option>
+          <option>Dairy</option>
+          <option>Beverages</option>
+        </select>
+        <select name="store" required>
+          <option>Walmart</option>
+          <option>Target</option>
+          <option>Whole Foods</option>
+        </select>
+        <input name="pickupDate" type="date" required/>
+        <input name="pickupTime" type="time" required/>
+        <label class="chk"><input type="checkbox" name="highPriority"/> High Priority</label>
+        <button type="submit" class="btn-main">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script/script.js"></script>
+</body>
+</html>
